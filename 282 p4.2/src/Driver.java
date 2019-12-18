@@ -33,9 +33,14 @@ public class Driver {
                 for (int j = 0; j < numberOfNeighbors; j++) {
                     int neighbor = scan.nextInt();
                     int cost = scan.nextInt();
-                    graph.addEdge(i, neighbor, cost);
+                    Node vertexNeighbor = new Node(neighbor, cost);
+
+                    graph.addNeighbor(i, vertexNeighbor);
                 }
             }
+
+
+            graph.print();
 
 
         } catch (FileNotFoundException e) {
@@ -86,30 +91,18 @@ public class Driver {
             switch (choice) {
 
                 case (1): {
-//                    System.out.println(graph.verify());
-//                    System.out.println(graph.bfs(0));
-//                    System.out.println(graph.isConnected());
-                    if (graph.isConnected()) {
-                        System.out.println("graph is connected");
-                    } else {
-                        System.out.println("graph is disconnected");
-                    }
+                    System.out.println(graph.connected());
                     break;
                 }
                 case (2): {
-
-                    graph.primMST();
+//                    System.out.println(graph.MST());
+                    graph.MST();
                     break;
                 }
                 case (3): {
-                    try {
-                        System.out.println("start?");
-                        graph.dijkstra(graph.matrix, input.nextInt());
-                        break;
-                    } catch (ArrayIndexOutOfBoundsException | InputMismatchException e) {
-                        System.out.println("not a valid choice");
-                        inCaseOfError();
-                    }
+                    System.out.println("which node do you want to find the shortest path from?");
+
+                    break;
                 }
 
                 case (4): {
@@ -128,12 +121,9 @@ public class Driver {
 
 
     public static void main(String[] args) {
-        try {
-            Driver driver = new Driver();
-            driver.readFromFileAndAddToGraph("text.txt");
-            driver.options();
-        } catch (Exception e) {
-            System.out.println("EXCEPTION!");
-        }
+        Driver driver = new Driver();
+        driver.readFromFileAndAddToGraph("text.txt");
+        driver.options();
     }
+
 }
